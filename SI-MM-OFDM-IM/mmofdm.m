@@ -2,28 +2,25 @@ pkg load communications;
 clc; clear all;
 ############# Parameters Section###########
 
-CPL = 4;                %Cyclic Prefix Length
-modulation = 256;                        %General modulation scheme
-l = modulation / 4;                  %Total size of subblock
-M = modulation / l;                    %Modulation scheme
-u = 4;                                %Number of sub-blocks per group
-p = 300;                               %Number of groups per FFT block
-Eb = 1;                 %Power of bit
-SNRdb = [17];           %SNR in db
-noblocks = 1; 
+CPL = 4;                              %Cyclic Prefix Length
+modulation = 16;                      %General modulation order
+l = modulation / 4;                   %Total size of subblock
+M = modulation / l;                   %Modulation order corresponding to each mode
+u = 2;                                %Number of sub-blocks per group
+p = 2;                                %Number of groups per FFT block
+Eb = 1;                               %Power of bit in Watt
+SNRdb = [10000000000];                %SNR range of interest in db
+noblocks = 1;                         %Number of blocks per SI-MM-OFDM-IM symbol
+############# Parameters Section###########
 
-NFFT = p * l;              %FFT size
-
-symbolBits = log2(M);        %Bits per symbol
-
-
+NFFT = p * l;                           %FFT size
+DSC = NFFT;
+symbolBits = log2(M);                   %Bits per symbol
 k = ones(1, l);
 
-
-############# Parameters Section###########
-SNRdbSymbol = SNRdb + 10*log10(NFFT/NFFT) + 10*log10(64/80);          %OFDM symbol per noise ratio in db
-SNRw = 10.^(SNRdbSymbol/10);                                          %OFDM symbol per noise ratio in Watt
-Noise = 2*Eb./SNRw;     %Power of Noise in Watt                                          
+SNRdbSymbol = SNRdb + 10*log10(DSC/NFFT) + 10*log10(NFFT/(NFFT+CPL));          %OFDM symbol per noise ratio in db
+SNRw = 10.^(SNRdbSymbol/10);                                                   %OFDM symbol per noise ratio in Watt
+Noise = 2*Eb./SNRw;                                                            %Power of Noise in Watt                                          
 
 g1 = floor(log2(factorial(u)));                                     %Sub-block Index Bits
 g2 = u * floor(log2(factorial(l/u)));                               %Mode Index Bits
@@ -159,7 +156,7 @@ for noise = Noise
   for mode = 1:u
     mode
     matrixIndex = (mode - 1)*l/u + baseIndex;
-    [finalIndex final] = ml_right(receivedSymbols, symbols(matrixIndex,:), l/u, stageIndexes, prevStageIndexes);
+    [finalIndex final] = ml(receivedSymbols, symbols(matrixIndex,:), l/u, stageIndexes, prevStageIndexes);
     matrixSymbols = cat(3, matrixSymbols, final);
     matrixModes = cat(3, matrixModes, finalIndex);
   endfor  

@@ -2,33 +2,31 @@ pkg load communications;
 clc; clear all;
 ############# Parameters Section###########
 
-CPL = 4;                %Cyclic Prefix Length
-modulation = 64;                        %General modulation scheme
-l = modulation / 4;                  %Total size of subblock
-M = modulation / l;                    %Modulation scheme
-u = 8;                                %Number of sub-blocks per group
-p = 50000;                               %Number of groups per FFT block
-Eb = 1;                 %Power of bit
-SNRdb = [0:5:30];           %SNR in db
-noblocks = 1; 
+CPL = 4;                          %Cyclic Prefix Length
+modulation = 16;                  %General modulation scheme
+l = modulation / 4;               %Total size of subblock
+M = modulation / l;               %Modulation scheme
+u = 2;                            %Number of sub-blocks per group
+p = 1;                            %Number of groups per FFT block
+Eb = 1;                           %Power of bit in Watt
+SNRdb = [0:5:30];                 %SNR range of interest in db
+noblocks = 2;                     %Number of FFT blocks per SI-MM-OFDM-IM symbol
+############# Parameters Section###########
 
-NFFT = p * l;              %FFT size
+NFFT = p * l;                     %FFT block size
+DSC = NFFT;                       %Active OFDM subcarriers OFDM per sub-block
 
 symbolBits = log2(M);        %Bits per symbol
 
-k = ones(1, l);
+k = ones(1, l);       
 
-############# Parameters Section###########
 SNRdbSymbol = SNRdb + 10*log10(NFFT/NFFT) + 10*log10(64/80);          %OFDM symbol per noise ratio in db
 SNRw = 10.^(SNRdbSymbol/10);                                          %OFDM symbol per noise ratio in Watt
 Noise = 2*Eb./SNRw;     %Power of Noise in Watt                                          
 
 g1 = floor(log2(factorial(u)));                                     %Sub-block Index Bits
-
 g2 = u * floor(log2(factorial(l/u)));                                  %Mode Index Bits
-
 g3 = l*log2(M);                                                  %Data Bits
-
 g = g1 + g2 + g3;                                                        %Total bits for subblock                               
 
 m = g * p;                                                          %Total bits for the FFT block
@@ -37,23 +35,31 @@ N = m * noblocks;                                                   %Total numbe
 
 input = randi([0, 1], 1, N);                                        %Input bits
 
-if and(exist ('trellisDiagram.txt'), 2== 2)
+%% In case we have a trellis diagram with noStates == 16, we prefer to load a precomputed
+%% diagram due to the excessive computational complexity.
+if exist ('trellisDiagram.txt')  
   load('trellisDiagram.txt')
-  stageIndexes1=stageIndexes;
-  prevStageIndexes1 = prevStageIndexes;
-  'yes'
+  if l/u == 16
+    stageIndexesModes=stageIndexes;
+    prevStageIndexesModes = prevStageIndexes;
+    [stageIndexesGroups, prevStageIndexesGroups] = trellisGenerator (u);
+  elseif u == 16
+    stageIndexesGroups=stageIndexes;
+    prevStageIndexesGroups = prevStageIndexes;
+    [stageIndexesModes, prevStageIndexesModes] = trellisGenerator (l/u);
+  else
+    [stageIndexesModes, prevStageIndexesModes] = trellisGenerator (l/u);
+    [stageIndexesGroups, prevStageIndexesGroups] = trellisGenerator (u);
+  endif
 else  
-  'else'
+  [stageIndexesModes, prevStageIndexesModes] = trellisGenerator (l/u);
+  [stageIndexesGroups, prevStageIndexesGroups] = trellisGenerator (u);
 endif  
-
-[stageIndexes, prevStageIndexes] = trellisGenerator (l/u);
-[stageIndexes1, prevStageIndexes1] = trellisGenerator (u);
 
 
 symbols = generateSymbolGroups (modulation);
 
 split = reshape(input, m, noblocks);
-
 split = reshape(split, g, p, noblocks);
 
 blockIndexBits = bin2dec(num2str(reshape(split(1:g1, :, :), g1, p*noblocks).'));
@@ -163,7 +169,7 @@ for noise = Noise
   for mode = 1:u
     mode
     matrixIndex = (mode - 1)*l/u + baseIndex;
-    [finalIndex final] = ml_right(receivedSymbols, symbols(matrixIndex,:), l/u, stageIndexes, prevStageIndexes);
+    [finalIndex final] = ml(receivedSymbols, symbols(matrixIndex,:), l/u, stageIndexes, prevStageIndexes);
     matrixSymbols = cat(3, matrixSymbols, final);
     matrixModes = cat(3, matrixModes, finalIndex);
   endfor  
