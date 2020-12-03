@@ -6,11 +6,11 @@ CPL = 4;                          %Cyclic Prefix Length
 modulation = 16;                  %General modulation scheme
 l = modulation / 4;               %Total size of subblock
 M = modulation / l;               %Modulation scheme
-u = 2;                            %Number of sub-blocks per group
+u = 2;                            %Number of sub- sub-blocks per group
 p = 1;                            %Number of groups per FFT block
 Eb = 1;                           %Power of bit in Watt
 SNRdb = [0:5:30];                 %SNR range of interest in db
-noblocks = 2;                     %Number of FFT blocks per SI-MM-OFDM-IM symbol
+noblocks = 1;                     %Number of FFT blocks per SI-MM-OFDM-IM symbol
 ############# Parameters Section###########
 
 NFFT = p * l;                     %FFT block size
@@ -59,12 +59,10 @@ endif
 
 symbols = generateSymbolGroups (modulation);
 
-split = reshape(input, m, noblocks);
-split = reshape(split, g, p, noblocks);
+inputBits = reshape(input, m, noblocks);
+inputBits = reshape(inputBits, g, p, noblocks);
 
-blockIndexBits = bin2dec(num2str(reshape(split(1:g1, :, :), g1, p*noblocks).'));
-
-blockIndexDec = bin2dec(num2str(reshape(split(1:g1, :, :), g1, p*noblocks).'));
+blockIndexDec = bin2dec(num2str(reshape(inputBits(1:g1, :, :), g1, p*noblocks).'));
 
 realIndexBits = blockIndexDec;
 
@@ -73,7 +71,7 @@ if length(blockIndexDec) == 0
   blockIndexDec= 1;
 endif
 
-indexBits = reshape(split((g1+1):(g1+g2), :, :), g2, noblocks*p)';
+indexBits = reshape(inputBits((g1+1):(g1+g2), :, :), g2, noblocks*p)';
 
 indexBits = bin2dec(num2str(reshape(indexBits.', g2/u, noblocks*p*u).'));
 
@@ -81,7 +79,7 @@ indexDec = indexMapping(indexBits, l/u);
 
 indeces = (repmat(blockIndexDec.'(:), 1, l/u) - 1) * (l/u) + indexDec;
 
-dataBits = reshape(split((g1+g2+1):(g), :, :), g3, noblocks*p)';
+dataBits = reshape(inputBits((g1+g2+1):(g), :, :), g3, noblocks*p)';
 
 dataDec = bin2dec(num2str(reshape(dataBits.', g3/l, noblocks*p*l).'));
 
@@ -169,12 +167,12 @@ for noise = Noise
   for mode = 1:u
     mode
     matrixIndex = (mode - 1)*l/u + baseIndex;
-    [finalIndex final] = ml(receivedSymbols, symbols(matrixIndex,:), l/u, stageIndexes, prevStageIndexes);
+    [finalIndex final] = ml(receivedSymbols, symbols(matrixIndex,:), l/u, stageIndexesModes, prevStageIndexesModes);
     matrixSymbols = cat(3, matrixSymbols, final);
     matrixModes = cat(3, matrixModes, finalIndex);
   endfor  
   'mlmode'
-  [finalIndex ] = mlMode (receivedSymbols, matrixSymbols, u, l, stageIndexes1, prevStageIndexes1);
+  [finalIndex ] = mlMode (receivedSymbols, matrixSymbols, u, l, stageIndexesGroups, prevStageIndexesGroups);
   
   matrixIndeces = sub2ind (size(matrixModes), repmat([1:size(receivedSymbols, 1)].', 1, l/u), repmat([1:l/u], size(receivedSymbols, 1), 1), repmat(finalIndex.'(:), 1, l/u));
   finalData = matrixSymbols(matrixIndeces);
