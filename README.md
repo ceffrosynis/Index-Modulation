@@ -1,1 +1,1 @@
-# Index-Modulation
+# SI-MM-OFDM-IM
