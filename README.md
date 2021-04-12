@@ -8,6 +8,7 @@ In this repo we implement three of the basics IM schemes:
 1. Single Mode OFDM Index Modulation (SM-OFDM-IM)
 2. Dual Mode OFDM Index Modulation (DM-OFDM-IM)
 3. Multiple Mode OFDM Index Modulation (MM-OFDM-IM).
+
 and we propose a novel (IM) scheme, with a much more improved Bit Error Rate (BER), the Sub-block Index Multiple Mode OFDM Index Modulation (SI-MM-OFDM-IM).
 ![alt text](https://github.com/ceffrosynis/Index-Modulation/blob/master/images/Arrow%20Diagram%20Casual%20Strcture(2).png)
 
