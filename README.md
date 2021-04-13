@@ -20,7 +20,8 @@ and we propose a novel (IM) scheme, with a much more improved Bit Error Rate (BE
 * **Perfect Channel Estimation**
 
 ## Detector
-
+* **Viterbi-like Algorithm**
+* * **Better performance than the Optimal ML Detector**
 
 
 
