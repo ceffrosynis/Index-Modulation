@@ -18,13 +18,16 @@ and we propose and implement a novel (IM) scheme, with a much more improved Bit 
 
 ## Implementation
 
-## Channel Model
-* **Rician Fading Channel**
-* **Perfect Channel Estimation**
+* **Transmitter
 
-## Detector
-* **Viterbi-like Algorithm**
-  * **Better performance than the Optimal ML Detector**
+* **Channel Model
+  * **Rician Fading Channel**
+  * **Perfect Channel Estimation**
+
+* **Receiver
+  * **Detector
+    * **Viterbi-like Algorithm**
+    * **Better performance than the Optimal ML Detector**
 
 
 ## SM-OFDM-IM
