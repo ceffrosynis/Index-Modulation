@@ -16,10 +16,10 @@ and we propose and implement a novel (IM) scheme, with a much more improved Bit 
 
 ![alt text](https://github.com/ceffrosynis/Index-Modulation/blob/master/images/Arrow%20Diagram%20Casual%20Strcture(2).png)
 
-This repo also contains a recearch paper
+This repo also contains a recearch paper:
 * **Obfuscation_of_Index_Modulated_OFDM_Signals.pdf**
 
-which contains 
+which contains:
 * **Model Architecture** 
 * **BER Performance Evaluation (Unencrypted/Encrypted)**
 * **Modulation Obfuscation Security Evaluation (Unencrypted/Encrypted)**
