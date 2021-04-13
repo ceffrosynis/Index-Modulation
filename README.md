@@ -20,7 +20,7 @@ This repo also contains a recearch paper:
 * **Obfuscation_of_Index_Modulated_OFDM_Signals.pdf**
 
 which contains:
-* **Model Architecture** 
+* **Model Architecture (Unencrypted/Encrypted)** 
 * **BER Performance Evaluation (Unencrypted/Encrypted)**
 * **Modulation Obfuscation Security Evaluation (Unencrypted/Encrypted)**
 
