@@ -40,10 +40,10 @@ which contains:
     * **Better performance than the Optimal ML Detector**
 
 
-## [SM-OFDM-IM](http://www.google.fr/ "Named link title")
+## [SM-OFDM-IM](https://github.com/ceffrosynis/Index-Modulation/tree/master/OFDM-IM "Named link title")
 
 ## DM-OFDM-IM
 
 ## MM-OFDM-IM
 
-## SI-OFDM-IM
+## [SI-OFDM-IM](https://github.com/ceffrosynis/Index-Modulation/tree/master/SI-MM-OFDM-IM "Named link title")
