@@ -16,6 +16,8 @@ and we propose and implement a novel (IM) scheme, with a much more improved Bit 
 
 ![alt text](https://github.com/ceffrosynis/Index-Modulation/blob/master/images/Arrow%20Diagram%20Casual%20Strcture(2).png)
 
+## Implementation
+
 ## Channel Model
 * **Rician Fading Channel**
 * **Perfect Channel Estimation**
@@ -23,8 +25,6 @@ and we propose and implement a novel (IM) scheme, with a much more improved Bit 
 ## Detector
 * **Viterbi-like Algorithm**
   * **Better performance than the Optimal ML Detector**
-
-## Implementations
 
 
 ## SM-OFDM-IM
