@@ -23,6 +23,7 @@ which contains:
 * **Model Architecture (Unencrypted/Encrypted)** 
 * **BER Performance Evaluation (Unencrypted/Encrypted)**
 * **Modulation Obfuscation Security Evaluation (Unencrypted/Encrypted)**
+* * **Machine Learning - Neural Network**
 
 
 ## Implementation
