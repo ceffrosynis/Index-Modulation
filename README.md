@@ -25,7 +25,7 @@ and we propose and implement a novel (IM) scheme, with a much more improved Bit 
   * **Better performance than the Optimal ML Detector**
 
 ## Implementations
-#### Heading 4 ####
+
 
 ## SM-OFDM-IM
 
