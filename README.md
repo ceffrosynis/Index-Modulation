@@ -40,7 +40,7 @@ which contains:
     * **Better performance than the Optimal ML Detector**
 
 
-[## SM-OFDM-IM](http://www.google.fr/ "Named link title")
+## [SM-OFDM-IM](http://www.google.fr/ "Named link title")
 
 ## DM-OFDM-IM
 
