@@ -18,14 +18,14 @@ and we propose and implement a novel (IM) scheme, with a much more improved Bit 
 
 ## Implementation
 
-* **Transmitter
+* **Transmitter**
 
 * **Channel Model
   * **Rician Fading Channel**
   * **Perfect Channel Estimation**
 
-* **Receiver
-  * **Detector
+* **Receiver**
+  * **Detector**
     * **Viterbi-like Algorithm**
     * **Better performance than the Optimal ML Detector**
 
