@@ -4,18 +4,18 @@ clc; clear all;
 
 CPL = 4;                              %Cyclic Prefix Length
 modulation = 16;                      %General modulation order
-l = modulation / 4;                   %Total size of subblock
-M = modulation / l;                   %Modulation order corresponding to each mode
-u = 2;                                %Number of sub-blocks per group
-p = 2;                                %Number of groups per FFT block
+l = modulation / 4;                   %Total size of sub-block
+M = modulation / l;                   %Modulation order corresponding to each constellation signal
+u = 4;                                %Number of sub-sub-blocks
+p = 100000;                                %Number of sub-blocks per FFT block
 Eb = 1;                               %Power of bit in Watt
-SNRdb = [10000000000];                %SNR range of interest in db
+SNRdb = [1:10];                         %SNR range of interest in db
 noblocks = 1;                         %Number of blocks per SI-MM-OFDM-IM symbol
 ############# Parameters Section###########
 
-NFFT = p * l;                           %FFT size
-DSC = NFFT;
-symbolBits = log2(M);                   %Bits per symbol
+NFFT = p * l;                         %FFT size
+DSC = NFFT; 			
+symbolBits = log2(M);                 %Bits per symbol
 k = ones(1, l);
 
 SNRdbSymbol = SNRdb + 10*log10(DSC/NFFT) + 10*log10(NFFT/(NFFT+CPL));          %OFDM symbol per noise ratio in db
@@ -27,24 +27,26 @@ g2 = u * floor(log2(factorial(l/u)));                               %Mode Index 
 g3 = l*log2(M);                                                     %Data Bits
 g = g1 + g2 + g3;                                                   %Total bits for subblock                               
 
-m = g * p;                                                          %Total bits for the FFT block
-                                                     %Number of FFT blocks
+m = g * p;                                                          %Total bits of the FFT block
+
 N = m * noblocks;                                                   %Total number of input bits  
 
 input = randi([0, 1], 1, N);                                        %Input bits
 
-if and(exist ('trellisDiagram.txt'), 2== 2)
+if and(exist('trellisDiagram.txt'), l/u==64)
   load('trellisDiagram.txt')
-  stageIndexes1=stageIndexes;
-  prevStageIndexes1 = prevStageIndexes;
-  'yes'
+  subSubBlockIndexes = stageIndexes;
+  subSubBlockprevIndexes = prevStageIndexes;
+  [subBlockIndexes, subBlockprevIndexes] = trellisGenerator (u);
+elseif and(exist('trellisDiagram.txt'), u==64)
+  load('trellisDiagram.txt')
+  subBlockIndexes = stageIndexes;
+  subBlockprevIndexes = prevStageIndexes;
+  [subSubBlockIndexes, subSubBlockprevIndexes] = trellisGenerator (u);
 else  
-  'else'
-endif  
-
-#[stageIndexes, prevStageIndexes] = trellisGenerator (l/u);
-[stageIndexes1, prevStageIndexes1] = trellisGenerator (u);
-
+  [subSubBlockIndexes, subSubBlockprevIndexes] = trellisGenerator (l/u);
+  [subBlockIndexes, subBlockprevIndexes] = trellisGenerator (u);
+endif
 
 symbols = generateSymbolGroups (modulation);
 
@@ -156,12 +158,12 @@ for noise = Noise
   for mode = 1:u
     mode
     matrixIndex = (mode - 1)*l/u + baseIndex;
-    [finalIndex final] = ml(receivedSymbols, symbols(matrixIndex,:), l/u, stageIndexes, prevStageIndexes);
+    [finalIndex final] = ml(receivedSymbols, symbols(matrixIndex,:), l/u, subSubBlockIndexes, subSubBlockprevIndexes);
     matrixSymbols = cat(3, matrixSymbols, final);
     matrixModes = cat(3, matrixModes, finalIndex);
   endfor  
   'mlmode'
-  [finalIndex ] = mlMode (receivedSymbols, matrixSymbols, u, l, stageIndexes1, prevStageIndexes1);
+  [finalIndex ] = mlMode (receivedSymbols, matrixSymbols, u, l, subBlockIndexes, subBlockprevIndexes);
   
   matrixIndeces = sub2ind (size(matrixModes), repmat([1:size(receivedSymbols, 1)].', 1, l/u), repmat([1:l/u], size(receivedSymbols, 1), 1), repmat(finalIndex.'(:), 1, l/u));
   finalData = matrixSymbols(matrixIndeces);
