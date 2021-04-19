@@ -1,5 +1,6 @@
 ## ML Detector
 
-Viterbi-like Algorithm
+The Viterbi-like Algorithm can be visualized by means of a trellis diagram
 
-![equation](http://www.sciweavers.org/tex2img.php?eq=1%2Bsin%28mc%5E2%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=)
+In a trellis graph, each node corresponds to a distinct state at a given time, and each arrow represents a transition to some new state at the next instant of time. We divide the process into stages. Each stage has a k-combination set of the index pattern which have a size of k and there are n stages in total. For example, for an index  pattern with length 4, we have a trellis diagram with four stages.
+
