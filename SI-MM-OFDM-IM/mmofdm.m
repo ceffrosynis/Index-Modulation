@@ -6,10 +6,10 @@ CPL = 4;                              %Cyclic Prefix Length
 modulation = 16;                      %General modulation order
 l = modulation / 4;                   %Total size of sub-block
 M = modulation / l;                   %Modulation order corresponding to each constellation signal
-u = 4;                                %Number of sub-sub-blocks
-p = 100000;                                %Number of sub-blocks per FFT block
+u = 2;                                %Number of sub-sub-blocks
+p = 2;                                %Number of sub-blocks per FFT block
 Eb = 1;                               %Power of bit in Watt
-SNRdb = [1:10];                         %SNR range of interest in db
+SNRdb = [1:20];                         %SNR range of interest in db
 noblocks = 1;                         %Number of blocks per SI-MM-OFDM-IM symbol
 ############# Parameters Section###########
 
