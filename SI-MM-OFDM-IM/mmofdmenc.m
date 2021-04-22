@@ -1,5 +1,8 @@
 pkg load communications;
 clc; clear all;
+
+addpath("./../lib/IndexMapper");           % Library path
+
 ############# Parameters Section###########
 
 CPL = 4;                          %Cyclic Prefix Length
@@ -66,7 +69,7 @@ blockIndexDec = bin2dec(num2str(reshape(inputBits(1:g1, :, :), g1, p*noblocks).'
 
 realIndexBits = blockIndexDec;
 
-blockIndexDec = indexMapping(blockIndexDec, u);
+blockIndexDec = IndexMapping(blockIndexDec, u);
 if length(blockIndexDec) == 0
   blockIndexDec= 1;
 endif
@@ -75,7 +78,7 @@ indexBits = reshape(inputBits((g1+1):(g1+g2), :, :), g2, noblocks*p)';
 
 indexBits = bin2dec(num2str(reshape(indexBits.', g2/u, noblocks*p*u).'));
 
-indexDec = indexMapping(indexBits, l/u);
+indexDec = IndexMapping(indexBits, l/u);
 
 indeces = (repmat(blockIndexDec.'(:), 1, l/u) - 1) * (l/u) + indexDec;
 
@@ -182,14 +185,14 @@ for noise = Noise
   
   finalModes = matrixModes(matrixIndeces);
   
-  finalModeIndexBits = indexDemapping(finalModes, l/u);
+  finalModeIndexBits = IndexDemapping(finalModes, l/u);
   
   finalModeKey = finalModeIndexBits;
   
   finalModeIndexBits = de2bi(finalModeIndexBits, g2/u, "left-msb");
   finalModeIndexBits = reshape(finalModeIndexBits.', g2, p*noblocks).';
   
-  finalBlockModeIndex = indexDemapping(finalIndex, u);
+  finalBlockModeIndex = IndexDemapping(finalIndex, u);
   
   finalBlockModeKey = finalBlockModeIndex;
   
