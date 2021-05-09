@@ -4,4 +4,5 @@ To take full advantage of IM, we must be able to generate all possible permutati
 
 An example of this algorithm is represented in the figure below (four different signal constellations)
 
+![alt text](https://github.com/ceffrosynis/Index-Modulation/blob/master/images/heap.PNG)
 
