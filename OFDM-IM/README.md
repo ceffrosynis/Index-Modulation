@@ -2,4 +2,4 @@
 
 * **Frequency Domain**
 * **OFDM sub-carriers**
-* **Two modes are pemitted (M-ary and null)**
+* **Two available modes (M-ary and null)**
