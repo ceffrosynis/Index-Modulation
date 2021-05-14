@@ -46,4 +46,4 @@ which contains:
 
 ## MM-OFDM-IM
 
-## [SI-OFDM-IM](https://github.com/ceffrosynis/Index-Modulation/tree/master/SI-MM-OFDM-IM "Named link title")
+## [SI-MM-OFDM-IM](https://github.com/ceffrosynis/Index-Modulation/tree/master/SI-MM-OFDM-IM "Named link title")
