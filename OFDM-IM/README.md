@@ -1,4 +1,4 @@
 ## OFDM-IM
 
 * **Frequency Domain**
-* OFDM Sub-carriers
+* **OFDM Sub-carriers**
