@@ -1,6 +1,6 @@
 # OFDM
 
 * **Modulation scheme**
- * **QAM**
+  * **QAM**
 * **Receiver**
   * **Perfect channel estimation.** 
