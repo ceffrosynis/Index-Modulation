@@ -1,4 +1,4 @@
 # OFDM
 
-* Receiver
+* ## Receiver ##
 * * ## Perfect channel estimation. ## 
