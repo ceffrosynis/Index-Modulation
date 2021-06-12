@@ -1,6 +1,8 @@
 # OFDM
 
-* **Modulation scheme**
+* **Modulation Scheme**
   * **QAM**
+* **Channel Model**
+  * **Rician Fading Channel**
 * **Receiver**
-  * **Perfect channel estimation.** 
+  * **Perfect Channel Estimation.** 
