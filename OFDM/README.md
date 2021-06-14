@@ -6,3 +6,5 @@
   * **Rician Fading Channel**
 * **Receiver**
   * **Perfect Channel Estimation.** 
+
+## Software Platform
