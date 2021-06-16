@@ -25,6 +25,8 @@ which contains:
 * **Modulation Obfuscation Security Evaluation (Unencrypted/Encrypted)**
   * **Machine Learning - Neural Network**
 
+## Software Platform
+* **Octave**
 
 ## Implementation
 
