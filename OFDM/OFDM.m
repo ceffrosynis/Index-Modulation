@@ -1,28 +1,30 @@
+###### Initialization  ########
 pkg load communications;
 clc; clear all; close all;
 
 
-####Arguments####
-SNRdb = [0:5:30];
-modulation = 4*4;
-N = 1000;
-Rb = 10000;
-oversampling = 1;
+#### Arguments ####
+SNRdb = [0:5:30];	####### SNR Range (to db) ########
+modulation = 4;		####### Modulation Scheme ########
+N = 1000;		####### Total number of transmitting bits #######
+Rb = 10000;		####### Transmitting Bit Rate #######
+oversampling = 1;	####### Oversampling at Transmitter/Receiver ########
 
 ######OFDM#######
-NFFT = 64;     %FFT Size
-CPL = 16;      %Cyclic Prefix
-DSC = 64;     %Data subcarriers
-SNRdbSymbol = SNRdb + 10*log10(DSC/NFFT) + 10*log10(NFFT/(NFFT+CPL)); %Symbol per noise ratio
+NFFT = 64;     		%FFT Size
+CPL = 16;      		%Cyclic Prefix
+DSC = 64;      		%Data (active) subcarriers
+SNRdbSymbol = SNRdb + 10*log10(DSC/NFFT) + 10*log10(NFFT/(NFFT+CPL)); 	%Symbol per noise ratio
 
-Eb = 1;
+Eb = 1;			%The energy of one bit
 symbolbits = log2(modulation);
 
-N = N * symbolbits* NFFT;
+N = N * symbolbits * NFFT;
 
 SNRw = 10.^(SNRdbSymbol/10);
 Noise = 2*Eb./SNRw;
 
+######## Normalized oversampling filters ########
 txfilter = sqrt(Eb/oversampling)*ones(1, oversampling);
 rxfilter = sqrt(Eb/oversampling)*ones(1, oversampling);
 
@@ -38,11 +40,11 @@ complexInputSymbols = qammod(inputSymbols, modulation);
 
 %complexInputSymbols = fftshift(complexInputSymbols);
 
-nobins = length(complexInputSymbols)/NFFT;
+nobins = length(complexInputSymbols)/NFFT;		%Number of FFT blocks
 
 ifftInput = reshape(complexInputSymbols, NFFT, nobins).';
 
-Nbin = nobins*(NFFT+CPL);
+Nbin = nobins * (NFFT + CPL);				%
 
 ifftSignal = ((NFFT/sqrt(DSC)) * ifft(fftshift(ifftInput.'))).';
 SignalWithCyclicPrefix = ifftSignal(:, end-CPL+1:end);
@@ -50,7 +52,6 @@ SignalWithCyclicPrefix = [SignalWithCyclicPrefix ifftSignal];
 channelInput = reshape(SignalWithCyclicPrefix.', 1, Nbin);
 
 signalLength = length(channelInput);
-TOT = signalLength/Nbin;
 
 ######### RICIAN ###############
 Kdb = 2;  %Ratio of direct path and scattered paths

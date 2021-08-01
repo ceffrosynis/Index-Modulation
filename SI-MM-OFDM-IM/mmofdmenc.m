@@ -13,7 +13,7 @@ u = 2;                            %Number of sub- sub-blocks per group
 p = 1;                            %Number of groups per FFT block
 Eb = 1;                           %Power of bit in Watt
 SNRdb = [0:5:30];                 %SNR range of interest in db
-noblocks = 1;                     %Number of FFT blocks per SI-MM-OFDM-IM symbol
+noblocks = 100;                     %Number of FFT blocks per SI-MM-OFDM-IM symbol
 ############# Parameters Section###########
 
 NFFT = p * l;                     %FFT block size
