@@ -6,7 +6,7 @@ clc; clear all; close all;
 #### Arguments ####
 SNRdb = [0:5:30];	####### SNR Range (to db) ########
 modulation = 4;		####### Modulation Scheme ########
-N = 1000;		####### Total number of transmitting bits #######
+noFFTBlocks = 1000;		####### Number of transmitting FFT Blocks #######
 Rb = 10000;		####### Transmitting Bit Rate #######
 oversampling = 1;	####### Oversampling at Transmitter/Receiver ########
 
