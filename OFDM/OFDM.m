@@ -4,11 +4,11 @@ clc; clear all; close all;
 
 
 #### Arguments ####
-SNRdb = [0:5:30];	####### SNR Range (to db) ########
-modulation = 4;		####### Modulation Scheme ########
+SNRdb = [0:5:30];	    ####### SNR Range (to db) ########
+modulation = 4;		    ####### Modulation Scheme ########
 noFFTBlocks = 1000;		####### Number of transmitting FFT Blocks #######
-Rb = 10000;		####### Transmitting Bit Rate #######
-oversampling = 1;	####### Oversampling at Transmitter/Receiver ########
+Rb = 10000;		        ####### Transmitting Bit Rate #######
+oversampling = 1;	    ####### Oversampling at Transmitter/Receiver ########
 
 ###### OFDM #######
 NFFT = 64;     		%FFT Size
@@ -30,12 +30,9 @@ rxfilter = sqrt(Eb/oversampling)*ones(1, oversampling);
 
 input = randi([0, 1], 1, N);
 
+###### Data Modulation #######
 inputSymbols = reshape(input, symbolbits, N/symbolbits).';
 inputSymbols = bin2dec(num2str(inputSymbols));
-
-errors = [];
-
-%%%Modulated Data
 complexInputSymbols = qammod(inputSymbols, modulation);  
 
 %complexInputSymbols = fftshift(complexInputSymbols);
