@@ -19,7 +19,7 @@ SNRdbSymbol = SNRdb + 10*log10(DSC/NFFT) + 10*log10(NFFT/(NFFT+CPL)); 	%Symbol p
 Eb = 1;			%The energy of one bit
 symbolbits = log2(modulation);
 
-N = N * symbolbits * NFFT;
+N = NoFFTBlocks * symbolbits * NFFT;
 
 SNRw = 10.^(SNRdbSymbol/10);
 Noise = 2*Eb./SNRw;
