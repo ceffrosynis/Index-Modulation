@@ -38,7 +38,7 @@ complexInputSymbols = qammod(inputSymbols, modulation);
 nobins = length(complexInputSymbols)/NFFT;		      ## Number of FFT blocks
 ifftInput = reshape(complexInputSymbols, NFFT, nobins).';
 
-###### FFT Operation + CP Insertion ######
+###### IFFT Operation + CP Insertion ######
 ifftSignal = ((NFFT/sqrt(DSC)) * ifft(fftshift(ifftInput.'))).';
 SignalWithCyclicPrefix = ifftSignal(:, end-CPL+1:end);
 SignalWithCyclicPrefix = [SignalWithCyclicPrefix ifftSignal];
@@ -73,16 +73,19 @@ errors = [];
 
 for noise = Noise
   
+  ###### AWGN and Rician Fading ######
   awgnnoise = sqrt(noise/2)*randn(1, Nbin) + i*sqrt(noise/2)*randn(1, Nbin);
 
+  ##### Channel Estimation #####
   channel = sqrt((NFFT+CPL)/NFFT)*h.*channelInput+ awgnnoise;
   channel = channel./h;
   
+  ###### FFT Operation + removing CP ######
   receivedSignal = reshape(channel.', NFFT+CPL, nobins).';
   receivedSignal = receivedSignal(:, end-NFFT+1:end);
   receivedSymbols = (sqrt(DSC)/NFFT)*fftshift(fft(receivedSignal.')).';
   
-
+  ###### Data Demodulation #####
   data = qamdemod(receivedSymbols, modulation);  
   finalData = de2bi(data.', symbolbits, "left-msb");
   data = reshape(data.', 1, NFFT*nobins);
