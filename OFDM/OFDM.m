@@ -38,12 +38,12 @@ complexInputSymbols = qammod(inputSymbols, modulation);
 nobins = length(complexInputSymbols)/NFFT;		      ## Number of FFT blocks
 ifftInput = reshape(complexInputSymbols, NFFT, nobins).';
 
-###### FFT Operation ######
+###### FFT Operation + CP Insertion ######
 ifftSignal = ((NFFT/sqrt(DSC)) * ifft(fftshift(ifftInput.'))).';
 SignalWithCyclicPrefix = ifftSignal(:, end-CPL+1:end);
 SignalWithCyclicPrefix = [SignalWithCyclicPrefix ifftSignal];
 
-Nbin = nobins * (NFFT + CPL);				        ## Total number OFDM symbols
+Nbin = nobins * (NFFT + CPL);				        ## Total number of OFDM symbols
 
 channelInput = reshape(SignalWithCyclicPrefix.', 1, Nbin);
 
