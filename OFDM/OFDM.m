@@ -10,7 +10,7 @@ noFFTBlocks = 1000;		####### Number of transmitting FFT Blocks #######
 Rb = 10000;		####### Transmitting Bit Rate #######
 oversampling = 1;	####### Oversampling at Transmitter/Receiver ########
 
-######OFDM#######
+###### OFDM #######
 NFFT = 64;     		%FFT Size
 CPL = 16;      		%Cyclic Prefix
 DSC = 64;      		%Data (active) subcarriers
