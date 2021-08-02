@@ -22,7 +22,7 @@ symbolbits = log2(modulation);
 N = NoFFTBlocks * symbolbits * NFFT;
 
 SNRw = 10.^(SNRdbSymbol/10);
-Noise = 2*Eb./SNRw;
+Noise = 2 * Eb ./ SNRw;
 
 ######## Normalized oversampling filters ########
 txfilter = sqrt(Eb/oversampling)*ones(1, oversampling);
