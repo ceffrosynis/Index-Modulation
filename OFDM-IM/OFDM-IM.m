@@ -3,22 +3,22 @@ clc; clear all; close all;
 
 
 ####Arguments####
-SNRdb = [0:10];     %SNR range
-modulation = 16;    %Modulation scheme
-N = 5000;          %Input length
+SNRdb = [0:10];     	###### SNR range ######
+modulation = 16;    	###### Modulation scheme ######
+noblocks = 5000;           	###### Number of OFDM-IM blocks ######
 
-NFFT = 60;     %Number of OFDM subcarriers  (64)
-CPL = 16;      %Cyclic Prefix (16)
+NFFT = 60;     		###### Number of OFDM subcarriers ######
+CPL = 16;      		###### Cyclic Prefix ######
 
-g = 10;  %Number of subblocks
-m = 190;  %Size of info bits
+g = 10;  		###### Number of subblocks ######
+m = 190;  		###### Size of info bits ######
 
-k = 4;   %Number of activated subcarriers
+k = 4;   		###### Number of active subcarriers ######
 
-Eb = 1;
+Eb = 1;			###### The energy of one bit ######
 
 ######OFDM#######
-DSC = k*g;     %Data subcarriers (64)
+DSC = k * g;     %Data subcarriers (Active Subcarriers)
 SNRdbSymbol = SNRdb + 10*log10(DSC/NFFT) + 10*log10(NFFT/(NFFT+CPL)); %Symbol per noise ratio
 symbolbits = log2(modulation);
 
@@ -28,11 +28,11 @@ n = NFFT/g; %OFDM-IM subblock length
 p1 = k * symbolbits;  %M-ary signal
 p2 = floor(log2(factorial(n)/(factorial(n-k)*factorial(k))));       %Index bits  
 
-maxNumber = 2^p2;       %all possible combinations of carrier indexes
+maxNumber = 2 ^ p2;       %all possible combinations of carrier indexes
 indeces = nchoosek([1:NFFT/g], k);
 noindeces = nchoosek(NFFT/g, k);
 
-N = N * m;
+N = noblocks * m;		##### Input Length #####
 
 SNRw = 10.^(SNRdbSymbol/10);
 Noise = 2*Eb./SNRw;
