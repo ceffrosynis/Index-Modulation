@@ -41,11 +41,10 @@ input = randi([0, 1], 1, N);
 
 noblocks = N/m;         %Number of OFDM-IM blocks
 
-%Splitting the input into a three dimensional array
+##### Splitting the input into a three dimensional array #####
 %1st Dimension (Vertical) : Bits of each subblock
 %2nd Dimension (Horizontal) : Splitting the subblocks
 %3nd Dimension (z) : Splitting the OFDM-IM symbols
-
 bitBlocks = reshape(input, m, noblocks);
 bitBlocks = reshape(bitBlocks, p, g, noblocks);
 
