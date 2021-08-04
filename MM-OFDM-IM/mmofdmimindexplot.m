@@ -27,8 +27,9 @@ m = g * p;                                                          %Total bits 
 noblocks = 300;                                                      %Number of FFT blocks
 N = m * noblocks;                                                   %Total number of input bits  
 
-
 input = randi([0, 1], 1, N);                                        %Input bits
+
+##### In case of l == 
 if exist ('trellisDiagram.txt') == 2
   load('trellisDiagram.txt')
 else  
