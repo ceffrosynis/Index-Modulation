@@ -48,23 +48,23 @@ noblocks = N/m;         %Number of OFDM-IM blocks
 bitBlocks = reshape(input, m, noblocks);
 bitBlocks = reshape(bitBlocks, p, g, noblocks);
 
+##### Extracting the index #####
 activeSubcarriers = bin2dec(num2str(reshape(bitBlocks((p1+1):p, :, :), p2, noblocks*g)'));
-
 realIndexBits = reshape(bitBlocks((p1+1):p, :, :), p2, noblocks*g);
 realIndex = activeSubcarriers;
 
 
-activeSubcarriers = indeces(activeSubcarriers+1, :);    %Mapping the p2 bits into active subcarrier indeces
+activeSubcarriers = indeces(activeSubcarriers+1, :);    %Mapping the p2 bits into an active subcarrier indeχ pattern
 
-realData = reshape(bitBlocks(1:p1, :, :), p1, noblocks*g).';   
-
+realData = reshape(bitBlocks(1:p1, :, :), p1, noblocks*g).'; 
+  
+##### Extracting the data #####
 inputSymbols = bin2dec(num2str(reshape(bitBlocks(1:p1, :, :), symbolbits, noblocks*g * k)'));
-
-%Encoding M-ary modulated data
-complexInputSymbols = qammod(inputSymbols, modulation);
+complexInputSymbols = qammod(inputSymbols, modulation);		%Encoding M-ary modulated data
 
 offset = [0:n:noblocks*NFFT-n]';
 activeSubcarriers = activeSubcarriers + offset;
+
 %Initializing the fft blocks
 ifftInput = zeros(noblocks, NFFT);
 
