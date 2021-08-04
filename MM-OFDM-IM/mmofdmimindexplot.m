@@ -1,27 +1,21 @@
 pkg load communications;
 clc; clear all;
 ############# Parameters Section###########
-
-CPL = 4;                %Cyclic Prefix Length
-
-NFFT = 64;              %FFT size
-
-modulation = 64;                        %General modulation scheme
-
-l = modulation / 4;                  %Total size of subblock
-
-M = modulation / l;                    %Modulation scheme
-
-symbolBits = log2(M);        %Bits per symbol
-
-
-k = ones(1, l);
-
-
+CPL = 4;                        %Cyclic Prefix Length
+NFFT = 64;                      %FFT size
+modulation = 64;                %General modulation scheme
+Eb = 1;                         %Power of bit
+SNRdb = [0:5:30];               %SNR in db
 ############# Parameters Section###########
 
-Eb = 1;                 %Power of bit
-SNRdb = [0:5:30];           %SNR in db
+
+l = modulation / 4;             %Total size of subblock
+
+M = modulation / l;             %Modulation scheme
+
+symbolBits = log2(M);           %Bits per symbol
+k = ones(1, l);
+
 SNRdbSymbol = SNRdb + 10*log10(NFFT/NFFT) + 10*log10(64/80);          %OFDM symbol per noise ratio in db
 SNRw = 10.^(SNRdbSymbol/10);                                          %OFDM symbol per noise ratio in Watt
 Noise = 2*Eb./SNRw;     %Power of Noise in Watt                                          
