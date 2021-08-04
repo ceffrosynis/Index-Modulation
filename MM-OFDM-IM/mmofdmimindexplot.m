@@ -27,12 +27,10 @@ m = g * p;                                                          %Total bits 
 noblocks = 300;                                                      %Number of FFT blocks
 N = m * noblocks;                                                   %Total number of input bits  
 
-maxNumber = 2^g1;
 
 input = randi([0, 1], 1, N);                                        %Input bits
 if exist ('trellisDiagram.txt') == 2
   load('trellisDiagram.txt')
-  'yes'
 else  
   [stageIndexes, prevStageIndexes] = trellisGenerator (l);
 endif  
