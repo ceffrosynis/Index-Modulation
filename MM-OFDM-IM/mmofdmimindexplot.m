@@ -21,11 +21,8 @@ SNRw = 10.^(SNRdbSymbol/10);                                          %OFDM symb
 Noise = 2*Eb./SNRw;                                                   %Power of Noise in Watt                                          
 
 g1 = floor(log2(factorial(l)));       %Index bits  
-
 g2 = l*log2(M);                                  %Data bits
-
 g = g1 + g2;                                                        %Total bits for subblock                               
-
 m = g * p;                                                          %Total bits for the FFT block
 noblocks = 300;                                                      %Number of FFT blocks
 N = m * noblocks;                                                   %Total number of input bits  
