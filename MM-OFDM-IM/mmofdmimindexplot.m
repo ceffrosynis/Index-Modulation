@@ -29,7 +29,8 @@ N = m * noblocks;                                                   %Total numbe
 
 input = randi([0, 1], 1, N);                                        %Input bits
 
-##### In case of l == 
+%% In case we have a trellis diagram with noStates == 16, we prefer to load a precomputed
+%% diagram due to the excessive computational complexity.
 if exist ('trellisDiagram.txt') == 2
   load('trellisDiagram.txt')
 else  
