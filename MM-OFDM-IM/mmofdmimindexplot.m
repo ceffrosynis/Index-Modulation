@@ -1,5 +1,6 @@
 pkg load communications;
 clc; clear all;
+
 ############# Parameters Section###########
 CPL = 4;                        %Cyclic Prefix Length
 NFFT = 64;                      %FFT size
