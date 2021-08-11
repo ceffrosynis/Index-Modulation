@@ -173,12 +173,8 @@ dataMatSize = size(realData, 1) * size(realData, 2);
 rightIndexDataErrors = rightIndexDataErrors / dataMatSize;
 
 errors = errors/N;
-%save('errors.txt', 'errors');
 
 indexErrors = indexErrors/(size(indexAdec1, 1) * size(indexAdec1, 2));
-%save('indexErrors.txt', 'indexErrors');
-
-%save('rightIndexDataErrors.txt', 'rightIndexDataErrors');
 
 semilogy(SNRdb,errors);
 legend("16QAM 4-modes");
