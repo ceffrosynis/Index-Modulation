@@ -168,7 +168,6 @@ for noise = Noise
   matrixModes = [];
   
   for mode = 1:u
-    mode
     matrixIndex = (mode - 1)*l/u + baseIndex;
     [finalIndex final] = ml(receivedSymbols, symbols(matrixIndex,:), l/u, stageIndexesModes, prevStageIndexesModes);
     matrixSymbols = cat(3, matrixSymbols, final);
