@@ -9,7 +9,7 @@ In order to test the robustness of the proposed modulation scheme, we use a deep
 * **Output is a N binary vector**
 
 ## Dataset
-
 * **4-QAM**
-* **16-QAM**
-* **64-QAM**
+* * **4-QAM**
+* * **16-QAM**
+* * **64-QAM**
