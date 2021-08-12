@@ -154,8 +154,8 @@ for noise = Noise
   
   receivedSignal = reshape(receivedSignal.', NFFT+CPL, noblocks).';
   
+  ##### Removing the Cyclic Prefix and performing FFT operation #####
   receivedSignal = receivedSignal(:, end-NFFT+1:end);
-
   receivedSymbols = (sqrt(NFFT)/NFFT)*fftshift(fft(receivedSignal.'));
   
   clear receivedSignal;
