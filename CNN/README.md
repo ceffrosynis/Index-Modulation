@@ -4,6 +4,6 @@ In order to test the robustness of the proposed modulation scheme, we use a deep
 
 The modulation recognition can modeled as:
 
-* ** N-class decision problem **
-* ** Input as a sampled signal **
-* ** Output is an N binary vector **
+* **N-class decision problem**
+* **Input as a sampled signal**
+* **Output is an N binary vector**
