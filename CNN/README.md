@@ -10,6 +10,6 @@ In order to test the robustness of the proposed modulation scheme, we use a deep
 
 ## Dataset
 * **4-QAM**
-* * **4-QAM**
-* * **16-QAM**
-* * **64-QAM**
+  * **4-QAM**
+  * **16-QAM**
+  * **64-QAM**
