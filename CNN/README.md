@@ -1,4 +1,6 @@
-## DM-OFDM-IM
+## Modulation Classifier
+
+
 
 * **Enhanced Spectral Efficiency**
 * **Two disjoint available modes, the M-ary and the N-ary respectively**
