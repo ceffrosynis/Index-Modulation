@@ -3,7 +3,7 @@
 ## Advantages
 
 * **All subcarriers are fully used**
-* **Better Bit Error Rqate Performance**
+* **Better Bit Error Rate Performance**
 
 ## Architecture
 
