@@ -6,14 +6,14 @@ addpath("./../lib/IndexMapper");           % Library path
 ############# Parameters Section###########
 
 CPL = 4;                          %Cyclic Prefix Length
-modulation = 16;                  %General modulation scheme
+modulation = 64;                  %General modulation scheme
 l = modulation / 4;               %Total size of subblock
 M = modulation / l;               %Modulation scheme
-u = 2;                            %Number of sub-sub-blocks per group
-p = 1;                            %Number of sub-sub-block groups per FFT block
+u = 4;                            %Number of sub-sub-blocks per group
+p = 20;                            %Number of sub-sub-block groups per FFT block
 Eb = 1;                           %Power of bit in Watt
 SNRdb = [0:5:30];                 %SNR range of interest in db
-noblocks = 4;                     %Number of FFT blocks per SI-MM-OFDM-IM symbol
+noblocks = 400;                     %Number of FFT blocks per SI-MM-OFDM-IM symbol
 ############# Parameters Section###########
 
 NFFT = p * l;                     %FFT block size
@@ -160,7 +160,7 @@ for noise = Noise
   
   clear receivedSignal;
 
-  receivedSymbols = reshape(receivedSymbols .',l/u, p*noblocks*u ).';
+  receivedSymbols = reshape(receivedSymbols, l/u, p*noblocks*u ).';
   
   baseIndex = 1:l/u;
   
