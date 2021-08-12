@@ -174,7 +174,7 @@ for noise = Noise
     matrixSymbols = cat(3, matrixSymbols, final);
     matrixModes = cat(3, matrixModes, finalIndex);
   endfor  
-  'mlmode'
+  
   [finalIndex ] = mlMode (receivedSymbols, matrixSymbols, u, l, stageIndexesGroups, prevStageIndexesGroups);
   
   matrixIndeces = sub2ind (size(matrixModes), repmat([1:size(receivedSymbols, 1)].', 1, l/u), repmat([1:l/u], size(receivedSymbols, 1), 1), repmat(finalIndex.'(:), 1, l/u));
