@@ -1,5 +1,8 @@
 pkg load communications;
 clc; clear all;
+
+addpath("./../lib/IndexMapper");           % Library path
+
 ############# Parameters Section###########
 
 CPL = 4;                              %Cyclic Prefix Length
